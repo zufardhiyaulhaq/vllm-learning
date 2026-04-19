@@ -60,3 +60,17 @@ GPU2    NV1     NV1      X      NV2     24-47           1
 GPU3    NV1     NV1     NV2      X      24-47           1
 ```
 
+## Todo
+1. Understand Transformer & Attention
+- jalammar.github.io/illustrated-transformer
+- jalammar.github.io/illustrated-gpt2
+- https://lilianweng.github.io/posts/2018-06-24-attention/
+- https://arxiv.org/abs/1706.03762
+2. Understand more on Parallelism, KV Cache, and Optimization
+- bentoml.com/llm/inference-optimization/data-tensor-pipeline-expert-hybrid-parallelism
+- docs.vllm.ai/en/stable/serving/parallelism_scaling
+- docs.jarvislabs.ai/blog/scaling-llm-inference-dp-pp-tp
+- infracloud.io/blogs/inference-parallelism
+- https://lilianweng.github.io/posts/2023-01-10-inference-optimization/
+3. LLM serving full stack overview https://www.runpod.io/articles/guides/ai-model-serving-architecture-building-scalable-inference-apis-for-production-applications
+
