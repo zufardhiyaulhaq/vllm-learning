@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-downloader-qwen36-35b
+  namespace: vllm
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: downloader
+          image: python:3.11-slim
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              pip install --no-cache-dir huggingface_hub hf_transfer
+              export HF_HUB_ENABLE_HF_TRANSFER=1
+              hf download Qwen/Qwen3.6-35B-A3B \
+                --local-dir /models/qwen3.6-35b-a3b \
+                --token $HF_TOKEN
+          env:
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: hf-secret
+                  key: token
+          volumeMounts:
+            - name: model-cache
+              mountPath: /models
+          resources:
+            requests:
+              memory: 4Gi
+              cpu: "4"
+            limits:
+              memory: 8Gi
+              cpu: "8"
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache
