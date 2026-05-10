@@ -65,6 +65,8 @@ GPU3    NV1     NV1     NV2      X      24-47           1
 - Custom disk (from a pre-baked snapshot) mounted to the node at /var/lib/containerd, where containerd stores container images. When a new node is created, the LLM image already exists locally.
 - containerd snapshotter plugin that support lazy load, like nydus, soci, or stargz.
 - P2P image distribution like dragonfly or spegel.
+
+![container-image-coldstart](assets/three_layer_coldstart_architecture.png)
 14. Same approach works for LLM model weights, bake them into a disk snapshot, mount via hostPath in the kubernetes pods.
 
 ## Todo
