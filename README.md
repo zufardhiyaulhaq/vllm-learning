@@ -60,6 +60,13 @@ GPU2    NV1     NV1      X      NV2     24-47           1
 GPU3    NV1     NV1     NV2      X      24-47           1
 ```
 
+12. LLM image is huge, vllm for example, container image is between 9-12GB https://hub.docker.com/r/vllm/vllm-openai. imagine spawn a new node of Kubernetes, and waiting 5-10 minutes to only pulling the image.
+13. to speed up container pull, there are several alternative:
+- Custom disk (from a pre-baked snapshot) mounted to the node at /var/lib/containerd, where containerd stores container images. When a new node is created, the LLM image already exists locally.
+- containerd snapshotter plugin that support lazy load, like nydus, soci, or stargz.
+- P2P image distribution like dragonfly or spegel.
+14. Same approach works for LLM model weights, bake them into a disk snapshot, mount via hostPath in the kubernetes pods.
+
 ## Todo
 1. Understand Transformer & Attention
 - jalammar.github.io/illustrated-transformer
